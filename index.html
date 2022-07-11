@@ -4,6 +4,7 @@
 <style>
 body {
   display: -webkit-flex;
+  flex-direction: column;
   -webkit-flex-direction: column;
 }
 .dropping {
@@ -11,6 +12,8 @@ body {
 }
 nav {
 	display: -webkit-flex;
+  justify-content: center;
+  align-items: center;
 	-webkit-justify-content: center;
 	-webkit-align-items: center;
 }
@@ -45,6 +48,7 @@ button:not(:disabled):active {
 }
 input {
   width: 100%;
+  user-select: none;
   -webkit-user-select: none;
 }
 input, textarea {
