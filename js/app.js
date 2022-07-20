@@ -1,24 +1,5 @@
-/*
-Copyright 2012 Google Inc.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-Author: Eric Bidelman (ericbidelman@chromium.org)
-Updated: Joe Marini (joemarini@google.com)
-*/
-
 var chosenEntry = null;
-var chooseFileButton = document.querySelector('#choose_file');
+// var chooseFileButton = document.querySelector('#choose_file');
 var chooseDirButton = document.querySelector('#choose_dir');
 // var saveFileButton = document.querySelector('#save_file');
 var output = document.querySelector('output');
@@ -186,29 +167,6 @@ function loadInitialFile(launchData) {
 	}
 }
 
-chooseFileButton.addEventListener('click', function (e) {
-	var accepts = [
-		{
-			mimeTypes: ['text/*'],
-			extensions: ['js', 'css', 'txt', 'html', 'xml', 'tsv', 'csv', 'rtf']
-		}
-	];
-	chrome.fileSystem.chooseEntry(
-		{ type: 'openFile', accepts: accepts },
-		function (theEntry) {
-			if (!theEntry) {
-				output.textContent = 'No file selected.';
-				return;
-			}
-			// use local storage to retain access to this file
-			chrome.storage.local.set({
-				chosenFile: chrome.fileSystem.retainEntry(theEntry)
-			});
-			loadFileEntry(theEntry);
-		}
-	);
-});
-
 chooseDirButton.addEventListener('click', function (e) {
 	chrome.fileSystem.chooseEntry({ type: 'openDirectory' }, (entry) => {
 		if (!entry) {
@@ -222,6 +180,29 @@ chooseDirButton.addEventListener('click', function (e) {
 		loadDirEntry(entry);
 	});
 });
+
+// chooseFileButton.addEventListener('click', function (e) {
+// 	var accepts = [
+// 		{
+// 			mimeTypes: ['text/*'],
+// 			extensions: ['js', 'css', 'txt', 'html', 'xml', 'tsv', 'csv', 'rtf']
+// 		}
+// 	];
+// 	chrome.fileSystem.chooseEntry(
+// 		{ type: 'openFile', accepts: accepts },
+// 		function (theEntry) {
+// 			if (!theEntry) {
+// 				output.textContent = 'No file selected.';
+// 				return;
+// 			}
+// 			// use local storage to retain access to this file
+// 			chrome.storage.local.set({
+// 				chosenFile: chrome.fileSystem.retainEntry(theEntry)
+// 			});
+// 			loadFileEntry(theEntry);
+// 		}
+// 	);
+// });
 
 // saveFileButton.addEventListener('click', function (e) {
 // 	var config = { type: 'saveFile', suggestedName: chosenEntry.name };
